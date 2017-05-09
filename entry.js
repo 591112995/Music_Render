@@ -1,7 +1,27 @@
+import "./style/index.less"
+import React from "react"
+import {render} from "react-dom"
+import Header from "./components/header.js"
+import Player from "./components/Player.js"
+import Footer from "./components/Footer.js"
+import $ from "jquery"
+var App=()=>(
+  <div className="root">
+    <Header/>
+    <Player/>
+    <Footer/>
+  </div>
+)
+
+render(
+  <App/>,
+  document.getElementById("root")
+)
+
 $(function(){
 	new Visualizer().ini();
 })
-    
+
 var Visualizer = function() {
     this.file = null; //要处理的文件，后面会讲解如何获取文件
     this.fileName = null; //要处理的文件的名，文件名
@@ -38,7 +58,7 @@ Visualizer.prototype = {
         //listen the file upload
         audioInput.onchange = function() {
             if (that.audioContext===null) {return;};
-            
+
             //the if statement fixes the file selction cancle, because the onchange will trigger even the file selection been canceled
             if (audioInput.files.length !== 0) {
                 //only process the first file
@@ -88,7 +108,7 @@ Visualizer.prototype = {
         }, false);
     },
     _readfile: function() {
-        //read and decode the file into audio array buffer 
+        //read and decode the file into audio array buffer
         var that = this,
             file = this.file,
             fr = new FileReader();//实例化一个FileReader用于读取文件
@@ -157,7 +177,7 @@ Visualizer.prototype = {
             capStyle = '#fff',
             meterNum = 800 / (10 + 2), //频谱的数量
             capYPositionArray = []; //存储上一帧的最高点
-        ctx = canvas.getContext('2d'),//内建的 HTML5 对象，拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法
+        var ctx = canvas.getContext('2d'),//内建的 HTML5 对象，拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法
         gradient = ctx.createLinearGradient(0, 0, 0, 300);//竖直渲染
         gradient.addColorStop(1, '#0f0');//绿
         gradient.addColorStop(0.5, '#ff0');//黄
